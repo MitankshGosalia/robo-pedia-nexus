@@ -1,7 +1,7 @@
 
 import TopicPageLayout from "@/components/topics/TopicPageLayout";
 import TopicCard from "@/components/shared/TopicCard";
-import { Brain, Cpu, Network, Code, Database, Share2 } from "lucide-react";
+import { Brain, Bot, Cpu, Network, Code, Database, Share2 } from "lucide-react";
 
 const AIRoboticsPage = () => {
   return (

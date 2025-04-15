@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Search, Robot, Code, Zap } from "lucide-react";
+import { ArrowRight, BookOpen, Search, Bot, Code, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Hero = () => {
@@ -152,7 +152,7 @@ const Hero = () => {
                       className="absolute top-0 left-1/2 w-10 h-10 rounded-full bg-card shadow-md border border-primary flex items-center justify-center"
                       style={{ marginLeft: '-20px', marginTop: '-5px' }}
                     >
-                      <Robot className="h-5 w-5 text-primary" />
+                      <Bot className="h-5 w-5 text-primary" />
                     </motion.div>
                   </motion.div>
                   
@@ -205,7 +205,7 @@ const Hero = () => {
                       ease: "easeInOut"
                     }}
                   >
-                    <Robot className="h-9 w-9 text-primary" />
+                    <Bot className="h-9 w-9 text-primary" />
                   </motion.div>
                 </div>
               </div>
