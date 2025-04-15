@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 interface TopicPageLayoutProps {
   children: ReactNode;
@@ -30,25 +31,75 @@ const TopicPageLayout = ({
               Back to Topics
             </Button>
           </Link>
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
+          <motion.h1 
+            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             {title}
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl animate-fade-in delay-100">
+          </motion.h1>
+          <motion.p 
+            className="text-lg md:text-xl text-muted-foreground max-w-3xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             {description}
-          </p>
+          </motion.p>
         </div>
         
         {/* Enhanced background effects */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full filter blur-3xl animate-pulse-gentle"></div>
-          <div className="absolute -bottom-1/2 right-1/4 w-96 h-96 bg-accent/5 rounded-full filter blur-3xl animate-pulse-gentle delay-150"></div>
-          <div className="absolute top-1/4 right-1/3 w-64 h-64 bg-secondary/5 rounded-full filter blur-2xl animate-pulse-gentle delay-300"></div>
+          <motion.div 
+            className="absolute -top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full filter blur-3xl"
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 0.7, 0.5]
+            }}
+            transition={{ 
+              repeat: Infinity,
+              duration: 8,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div 
+            className="absolute -bottom-1/2 right-1/4 w-96 h-96 bg-accent/5 rounded-full filter blur-3xl"
+            animate={{ 
+              scale: [1.2, 1, 1.2],
+              opacity: [0.5, 0.7, 0.5]
+            }}
+            transition={{ 
+              repeat: Infinity,
+              duration: 8,
+              ease: "easeInOut",
+              delay: 1
+            }}
+          />
+          <motion.div 
+            className="absolute top-1/4 right-1/3 w-64 h-64 bg-secondary/5 rounded-full filter blur-2xl"
+            animate={{ 
+              scale: [1, 1.1, 1],
+              opacity: [0.6, 0.8, 0.6]
+            }}
+            transition={{ 
+              repeat: Infinity,
+              duration: 5,
+              ease: "easeInOut",
+              delay: 0.5
+            }}
+          />
         </div>
       </div>
       <div className="container mx-auto px-4 py-12">
-        <div className="animate-scale-in">
+        <motion.div 
+          className="animate-scale-in"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           {children}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

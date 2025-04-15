@@ -16,6 +16,7 @@ import ControlSystemsPage from "./pages/topics/ControlSystemsPage";
 import FutureTechPage from "./pages/topics/FutureTechPage";
 import GlossaryPage from "./pages/GlossaryPage";
 import BlogPage from "./pages/BlogPage";
+import TopicsPage from "./pages/topics/TopicsPage";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/topics" element={<TopicsPage />} />
           <Route path="/topics/robot-types" element={<RobotTypesPage />} />
           <Route path="/topics/components" element={<ComponentsPage />} />
           <Route path="/topics/ai-robotics" element={<AIRoboticsPage />} />
