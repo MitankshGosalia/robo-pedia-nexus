@@ -1,7 +1,7 @@
 
 import TopicPageLayout from "@/components/topics/TopicPageLayout";
 import TopicCard from "@/components/shared/TopicCard";
-import { Robot, Factory, Cpu, Bot, Cog, Navigation } from "lucide-react";
+import { Bot, Factory, Cpu, Cog, Navigation } from "lucide-react";
 
 const RobotTypesPage = () => {
   return (
@@ -32,7 +32,7 @@ const RobotTypesPage = () => {
         <TopicCard
           title="Medical Robots"
           description="Precision machines revolutionizing healthcare and surgical procedures."
-          icon={<Robot className="h-6 w-6" />}
+          icon={<Bot className="h-6 w-6" />}
           href="/topics/robot-types/medical"
         />
         <TopicCard
