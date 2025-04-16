@@ -30,19 +30,23 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          
+          {/* Protected routes that should only be accessible after login */}
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/topics" element={<TopicsPage />} />
           <Route path="/topics/robot-types" element={<RobotTypesPage />} />
           <Route path="/topics/components" element={<ComponentsPage />} />
           <Route path="/topics/ai-robotics" element={<AIRoboticsPage />} />
           <Route path="/topics/control-systems" element={<ControlSystemsPage />} />
           <Route path="/topics/future-tech" element={<FutureTechPage />} />
+          
+          {/* Public routes that are only visible before login */}
           <Route path="/glossary" element={<GlossaryPage />} />
           <Route path="/blog" element={<BlogPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

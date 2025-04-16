@@ -33,6 +33,29 @@ const Navbar = () => {
     navigate("/");
   };
 
+  // Navigation items based on login status
+  const getNavigationItems = () => {
+    if (isLoggedIn) {
+      return [
+        { to: "/dashboard", label: "Dashboard" },
+        { to: "/topics/robot-types", label: "Robot Types" },
+        { to: "/topics/components", label: "Components" },
+        { to: "/topics/control-systems", label: "Control Systems" },
+        { to: "/topics/ai-robotics", label: "AI in Robotics" },
+        { to: "/topics/future-tech", label: "Future Tech" },
+      ];
+    }
+    return [
+      { to: "/topics/robot-types", label: "Robot Types" },
+      { to: "/topics/components", label: "Components" },
+      { to: "/topics/control-systems", label: "Control Systems" },
+      { to: "/topics/ai-robotics", label: "AI in Robotics" },
+      { to: "/topics/future-tech", label: "Future Tech" },
+      { to: "/glossary", label: "Glossary" },
+      { to: "/blog", label: "Blog" },
+    ];
+  };
+
   return (
     <nav className="bg-white dark:bg-robotics-background sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -49,27 +72,15 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-1">
-            <Link to="/topics/robot-types" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition">
-              Robot Types
-            </Link>
-            <Link to="/topics/components" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition">
-              Components
-            </Link>
-            <Link to="/topics/control-systems" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition">
-              Control Systems
-            </Link>
-            <Link to="/topics/ai-robotics" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition">
-              AI in Robotics
-            </Link>
-            <Link to="/topics/future-tech" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition">
-              Future Tech
-            </Link>
-            <Link to="/glossary" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition">
-              Glossary
-            </Link>
-            <Link to="/blog" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition">
-              Blog
-            </Link>
+            {getNavigationItems().map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition"
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
 
           {/* Search & Auth */}
@@ -127,55 +138,16 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white dark:bg-robotics-background animate-fade-in">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link
-              to="/topics/robot-types"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Robot Types
-            </Link>
-            <Link
-              to="/topics/components"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Components
-            </Link>
-            <Link
-              to="/topics/control-systems"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Control Systems
-            </Link>
-            <Link
-              to="/topics/ai-robotics"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              AI in Robotics
-            </Link>
-            <Link
-              to="/topics/future-tech"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Future Tech
-            </Link>
-            <Link
-              to="/glossary"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Glossary
-            </Link>
-            <Link
-              to="/blog"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Blog
-            </Link>
+            {getNavigationItems().map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
             
             {isLoggedIn ? (
               <>
