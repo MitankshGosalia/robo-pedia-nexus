@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -19,7 +18,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check login status when component mounts and when location changes
   useEffect(() => {
     const loginStatus = localStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(loginStatus);
@@ -33,11 +31,10 @@ const Navbar = () => {
     navigate("/");
   };
 
-  // Navigation items based on login status
   const getNavigationItems = () => {
     if (isLoggedIn) {
       return [
-        { to: "/dashboard", label: "Dashboard" },
+        { to: "/dashboard", icon: <LayoutDashboard className="h-4 w-4 mr-2" />, label: "Learning Dashboard" },
         { to: "/topics/robot-types", label: "Robot Types" },
         { to: "/topics/components", label: "Components" },
         { to: "/topics/control-systems", label: "Control Systems" },
@@ -60,7 +57,6 @@ const Navbar = () => {
     <nav className="bg-white dark:bg-robotics-background sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo & Brand */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <BookOpen className="h-8 w-8 text-primary mr-2" />
@@ -70,20 +66,19 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-1">
             {getNavigationItems().map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
-                className="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition"
+                className="flex items-center px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition"
               >
+                {item.icon && item.icon}
                 {item.label}
               </Link>
             ))}
           </div>
 
-          {/* Search & Auth */}
           <div className="hidden md:flex items-center space-x-2">
             <Button variant="outline" size="icon">
               <Search className="h-4 w-4" />
@@ -91,12 +86,6 @@ const Navbar = () => {
             
             {isLoggedIn ? (
               <>
-                <Link to="/dashboard">
-                  <Button variant="outline" className="flex items-center">
-                    <LayoutDashboard className="h-4 w-4 mr-2" />
-                    Dashboard
-                  </Button>
-                </Link>
                 <Link to="/profile">
                   <Button variant="outline" size="icon">
                     <UserCircle className="h-4 w-4" />
@@ -121,7 +110,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? (
@@ -134,7 +122,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="md:hidden bg-white dark:bg-robotics-background animate-fade-in">
           <div className="px-2 pt-2 pb-3 space-y-1">
@@ -142,22 +129,16 @@ const Navbar = () => {
               <Link
                 key={item.to}
                 to={item.to}
-                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
+                className="flex items-center px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
                 onClick={() => setIsMenuOpen(false)}
               >
+                {item.icon && item.icon}
                 {item.label}
               </Link>
             ))}
             
             {isLoggedIn ? (
               <>
-                <Link
-                  to="/dashboard"
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Dashboard
-                </Link>
                 <Link
                   to="/profile"
                   className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
