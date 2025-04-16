@@ -17,6 +17,7 @@ import FutureTechPage from "./pages/topics/FutureTechPage";
 import GlossaryPage from "./pages/GlossaryPage";
 import BlogPage from "./pages/BlogPage";
 import TopicsPage from "./pages/topics/TopicsPage";
+import ProfilePage from "./pages/profile/ProfilePage";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/glossary" element={<GlossaryPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFound />} />

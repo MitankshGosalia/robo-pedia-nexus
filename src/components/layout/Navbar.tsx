@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   MenuIcon,
@@ -8,10 +8,17 @@ import {
   BookOpen,
   Search,
   UserCircle,
+  LayoutDashboard,
 } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  
+  // This is a placeholder - in real app would come from auth context
+  const isLoggedIn = location.pathname.includes('/dashboard') || 
+                     location.pathname === '/login' || 
+                     location.pathname === '/register';
 
   return (
     <nav className="bg-white dark:bg-robotics-background sticky top-0 z-50 shadow-sm">
@@ -57,15 +64,34 @@ const Navbar = () => {
             <Button variant="outline" size="icon">
               <Search className="h-4 w-4" />
             </Button>
-            <Link to="/login">
-              <Button variant="outline" className="flex items-center">
-                <UserCircle className="h-4 w-4 mr-2" />
-                Log in
-              </Button>
-            </Link>
-            <Link to="/register">
-              <Button className="bg-primary hover:bg-primary/90">Sign Up</Button>
-            </Link>
+            
+            {isLoggedIn ? (
+              <>
+                <Link to="/dashboard">
+                  <Button variant="outline" className="flex items-center">
+                    <LayoutDashboard className="h-4 w-4 mr-2" />
+                    Dashboard
+                  </Button>
+                </Link>
+                <Link to="/profile">
+                  <Button variant="outline" size="icon">
+                    <UserCircle className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="outline" className="flex items-center">
+                    <UserCircle className="h-4 w-4 mr-2" />
+                    Log in
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button className="bg-primary hover:bg-primary/90">Sign Up</Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -134,25 +160,45 @@ const Navbar = () => {
             >
               Blog
             </Link>
-            <div className="pt-4 pb-3 border-t border-muted">
-              <div className="flex items-center px-3">
-                <Button variant="outline" size="icon" className="mr-2">
-                  <Search className="h-4 w-4" />
-                </Button>
-                <Link to="/login" className="w-full" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" className="w-full mb-2">
-                    Log in
-                  </Button>
+            
+            {isLoggedIn ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Dashboard
                 </Link>
-              </div>
-              <div className="px-3">
-                <Link to="/register" className="w-full block" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full bg-primary hover:bg-primary/90">
-                    Sign Up
-                  </Button>
+                <Link
+                  to="/profile"
+                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Profile
                 </Link>
+              </>
+            ) : (
+              <div className="pt-4 pb-3 border-t border-muted">
+                <div className="flex items-center px-3">
+                  <Button variant="outline" size="icon" className="mr-2">
+                    <Search className="h-4 w-4" />
+                  </Button>
+                  <Link to="/login" className="w-full" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="outline" className="w-full mb-2">
+                      Log in
+                    </Button>
+                  </Link>
+                </div>
+                <div className="px-3">
+                  <Link to="/register" className="w-full block" onClick={() => setIsMenuOpen(false)}>
+                    <Button className="w-full bg-primary hover:bg-primary/90">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
