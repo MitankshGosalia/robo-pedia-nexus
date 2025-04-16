@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   MenuIcon,
@@ -9,16 +9,29 @@ import {
   Search,
   UserCircle,
   LayoutDashboard,
+  LogOut,
 } from "lucide-react";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  
-  // This is a placeholder - in real app would come from auth context
-  const isLoggedIn = location.pathname.includes('/dashboard') || 
-                     location.pathname === '/login' || 
-                     location.pathname === '/register';
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check login status when component mounts and when location changes
+  useEffect(() => {
+    const loginStatus = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(loginStatus);
+  }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userName");
+    setIsLoggedIn(false);
+    toast.success("Logged out successfully");
+    navigate("/");
+  };
 
   return (
     <nav className="bg-white dark:bg-robotics-background sticky top-0 z-50 shadow-sm">
@@ -78,6 +91,9 @@ const Navbar = () => {
                     <UserCircle className="h-4 w-4" />
                   </Button>
                 </Link>
+                <Button variant="outline" size="icon" onClick={handleLogout}>
+                  <LogOut className="h-4 w-4" />
+                </Button>
               </>
             ) : (
               <>
@@ -177,6 +193,15 @@ const Navbar = () => {
                 >
                   Profile
                 </Link>
+                <button
+                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-muted"
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  Log Out
+                </button>
               </>
             ) : (
               <div className="pt-4 pb-3 border-t border-muted">

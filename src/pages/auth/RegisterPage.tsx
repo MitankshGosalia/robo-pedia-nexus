@@ -1,21 +1,35 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import Layout from "@/components/layout/Layout";
+import { toast } from "sonner";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     console.log("Register attempt with:", { name, email, password, agreedToTerms });
-    // Here you would add actual registration logic
+    
+    // This is a mock registration - in a real app, this would connect to your auth service
+    setTimeout(() => {
+      toast.success("Account created successfully!");
+      // Store user info in localStorage to simulate authenticated state
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userName", name);
+      // Redirect to dashboard after successful registration
+      navigate("/dashboard");
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -42,6 +56,7 @@ const RegisterPage = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="John Doe"
                   required
+                  disabled={isLoading}
                 />
               </div>
               
@@ -56,6 +71,7 @@ const RegisterPage = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
                   required
+                  disabled={isLoading}
                 />
               </div>
               
@@ -70,6 +86,7 @@ const RegisterPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
+                  disabled={isLoading}
                 />
               </div>
               
@@ -78,6 +95,7 @@ const RegisterPage = () => {
                   id="terms" 
                   checked={agreedToTerms}
                   onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                  disabled={isLoading}
                 />
                 <label
                   htmlFor="terms"
@@ -98,9 +116,9 @@ const RegisterPage = () => {
               <Button 
                 type="submit" 
                 className="w-full bg-primary"
-                disabled={!agreedToTerms}
+                disabled={!agreedToTerms || isLoading}
               >
-                Create account
+                {isLoading ? "Creating account..." : "Create account"}
               </Button>
             </form>
             

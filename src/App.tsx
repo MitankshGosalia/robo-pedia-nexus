@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import RobotTypesPage from "./pages/topics/RobotTypesPage";
 import ComponentsPage from "./pages/topics/ComponentsPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
@@ -41,6 +42,7 @@ const App = () => (
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,18 +1,37 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Layout from "@/components/layout/Layout";
+import { toast } from "sonner";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     console.log("Login attempt with:", { email, password });
-    // Here you would add actual authentication logic
+    
+    // This is a mock login - in a real app, this would connect to your auth service
+    setTimeout(() => {
+      // Mock validation (in a real app, this would check against a database)
+      if (email === "demo@example.com" && password === "password") {
+        toast.success("Login successful!");
+        // Store some user info in localStorage to simulate authenticated state
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userName", "Demo User");
+        // Redirect to dashboard after successful login
+        navigate("/dashboard");
+      } else {
+        toast.error("Invalid email or password");
+      }
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -39,6 +58,7 @@ const LoginPage = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
                   required
+                  disabled={isLoading}
                 />
               </div>
               
@@ -58,11 +78,16 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
+                  disabled={isLoading}
                 />
               </div>
               
-              <Button type="submit" className="w-full bg-primary">
-                Sign in
+              <Button 
+                type="submit" 
+                className="w-full bg-primary"
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing in..." : "Sign in"}
               </Button>
             </form>
             
@@ -72,6 +97,15 @@ const LoginPage = () => {
                 <Link to="/register" className="text-primary hover:underline">
                   Sign up
                 </Link>
+              </p>
+            </div>
+            
+            {/* Demo credentials info box */}
+            <div className="mt-6 p-3 bg-primary/5 border border-primary/10 rounded-md">
+              <p className="text-sm text-center">
+                <strong>Demo credentials:</strong><br/>
+                Email: demo@example.com<br/>
+                Password: password
               </p>
             </div>
           </div>
